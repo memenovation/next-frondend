@@ -13,3 +13,9 @@ npx create-next-app my-next-app -e https://github.com/memenovation/next-frondend
 # or
 yarn create next-app my-next-app -e https://github.com/memenovation/next-frondend
 ```
+
+## Deploy your own
+
+Deploy the example using [Vercel](https://vercel.com/):
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/memenovation/next-frondend)
