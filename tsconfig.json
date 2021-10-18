@@ -19,6 +19,7 @@
       "@configs/*": ["src/configs/*"],
       "@Types/*": ["src/types/*"],
       "@functions/*": ["src/functions/*"],
+      "@hooks/*": ["src/hooks/*"],
       "@data/*": ["src/data/*"],
       "@store/*": ["src/Store/*"],
       "@reducers/*": ["src/Reducers/*"]
