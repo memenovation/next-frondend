@@ -2,7 +2,7 @@
 
 This template is a Next.js starter with Tailwind CSS & Typescript configured.
 
-It uses the new [`Just-in-Time Mode`](https://tailwindcss.com/docs/just-in-time-mode) for Tailwind CSS.
+It uses the latest Next.js 12 and Tailwind CSS V3.
 
 ## How to use
 
