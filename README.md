@@ -12,6 +12,10 @@ Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packag
 npx create-next-app my-next-app -e https://github.com/memenovation/next-frondend
 # or
 yarn create next-app my-next-app -e https://github.com/memenovation/next-frondend
+
+
+# with basic auth using middleware
+yarn create next-app my-next-app -e https://github.com/memenovation/next-frondend/tree/with-basic-auth
 ```
 
 ## Deploy your own
