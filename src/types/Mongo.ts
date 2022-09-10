@@ -9,7 +9,10 @@ type MongoAction =
   | "deleteMany";
 
 interface MongoAPIParams {
+  DATA_API_URL: string;
+  DATA_API_KEY: string;
   action: MongoAction;
+  dataSource: string;
   db: string;
   collection: string;
   document?: {};

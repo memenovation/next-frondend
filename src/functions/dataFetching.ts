@@ -4,9 +4,12 @@ import axios from "axios";
 import { MongoAPIFunction } from "@Types/Mongo";
 
 export const mongoAPI: MongoAPIFunction = async ({
-  action,
+  DATA_API_URL,
+  DATA_API_KEY,
+  dataSource,
   db,
   collection,
+  action,
   document = null,
   filter = null,
   projection = null,
@@ -16,7 +19,7 @@ export const mongoAPI: MongoAPIFunction = async ({
 }) => {
   const data = Object.assign(
     {},
-    { dataSource: "achp-applications" },
+    { dataSource: dataSource },
     { database: db },
     { collection: collection },
     document && { document: document },
@@ -28,10 +31,10 @@ export const mongoAPI: MongoAPIFunction = async ({
   );
   const response = await axios({
     method: "POST",
-    url: `${process.env.ATLAS_DATA_API_URL}/action/${action}`,
+    url: `${DATA_API_URL}/action/${action}`,
     headers: {
       "Content-Type": "application/json",
-      "api-key": process.env.ATLAS_DATA_API_KEY,
+      "api-key": DATA_API_KEY,
     },
     data: data,
   });

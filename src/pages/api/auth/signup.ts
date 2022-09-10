@@ -5,18 +5,16 @@
 //packages
 import { apiHandler } from "@functions/api/APIHandler";
 import axios from "axios";
-import { hash } from "bcryptjs";
+const bcrypt = require("bcrypt");
 
 //functions
 import { mongoAPI } from "@functions/dataFetching";
 
+//config
+import { mongoDefault } from "@configs/mongoConfig";
+
 //api handler
 export default apiHandler(handler);
-
-const mongoDefault = {
-  db: "users_db",
-  collection: "users",
-};
 
 export async function handler(req, res) {
   //only accept POST
@@ -34,8 +32,8 @@ export async function handler(req, res) {
 
   //check if user already exists
   const user = await mongoAPI({
-    action: "findOne",
     ...mongoDefault,
+    action: "findOne",
     filter: {
       email: email,
     },
@@ -45,11 +43,11 @@ export async function handler(req, res) {
 
   //create user
   const createdUser = await mongoAPI({
-    action: "insertOne",
     ...mongoDefault,
+    action: "insertOne",
     document: {
       email: email,
-      password: await hash(password, 12),
+      password: await bcrypt.hash(password, 12),
     },
   });
   console.log(createdUser);
