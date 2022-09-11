@@ -22,8 +22,6 @@ export const authOptions = {
       },
       async authorize(credentials, req) {
         try {
-          const { email, password } = credentials;
-
           //find user by email in mongoDB
           const result = await mongoAPI({
             ...mongoDefault,
@@ -35,7 +33,10 @@ export const authOptions = {
 
           const user = result.document;
           //Not found - send error res
-          if (!user) return null;
+          if (!user) {
+            console.log("user not found");
+            throw new Error("User not found");
+          }
 
           //Check hased password with DB password
           const checkPassword = await bcrypt.compare(
@@ -46,19 +47,20 @@ export const authOptions = {
           console.log("checkPassword", checkPassword);
           //Incorrect password - send response
           if (!checkPassword) {
-            // throw "Password doesnt match";
-            return null;
+            throw new Error("Incorrect password");
           }
           console.log("success", user);
           return user;
         } catch (error) {
-          console.log("error", error);
-
+          console.log("error", error.message);
           throw error;
         }
       },
     }),
   ],
+  pages: {
+    signIn: "/auth/signin",
+  },
 };
 
 //@ts-ignore
