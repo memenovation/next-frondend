@@ -7,9 +7,13 @@
   },
   "dependencies": {
     "axios": "^0.22.0",
-    "next": "^12.3.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "next": "12.3.0",
+    "next-plugin-preact": "^3.0.7",
+    "preact": "^10.11.3",
+    "preact-render-to-string": "^5.2.6",
+    "react": "npm:@preact/compat",
+    "react-dom": "npm:@preact/compat",
+    "react-ssr-prepass": "npm:preact-ssr-prepass"
   },
   "devDependencies": {
     "@types/node": "^17.0.45",
