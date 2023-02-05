@@ -12,9 +12,22 @@ export const Layout = ({ children }) => {
 
   useEffect(() => {
     //handle redirect to signin when logged out
-    if (status === "unauthenticated" && router.pathname != "/auth/signin") {
-      console.log("redirectin");
-      router.push("/auth/signin");
+    // if (status === "unauthenticated" && router.pathname != "/auth/signin") {
+    //   console.log("redirectin");
+    //   router.push("/auth/signin");
+    //   return;
+    // }
+
+    //handle redirect after signin
+    if (
+      (router.pathname === "/auth/signin" ||
+        router.pathname === "/api/auth/signin") &&
+      session &&
+      status === "authenticated"
+    ) {
+      const callbackUrl = router?.query?.callbackUrl || "/";
+
+      router.push(callbackUrl.toString());
       return;
     }
   }, [session]);

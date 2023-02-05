@@ -1,8 +1,6 @@
 import Head from "next/head";
 import { useForm } from "react-hook-form";
-import { useEffect } from "react";
-import { useRouter } from "next/router";
-import { useSession, signIn } from "next-auth/react";
+
 //icons
 import { ImSpinner9 } from "react-icons/im";
 
@@ -11,8 +9,6 @@ import { useStore } from "@nanostores/react";
 import { handleSubmission, SubmissionStatus } from "@store/submissionStore";
 
 export default function SignIn() {
-  const router = useRouter();
-  const { data: session, status } = useSession();
   const {
     register,
     formState: { errors },
@@ -31,16 +27,6 @@ export default function SignIn() {
   const onSubmit = (data) => {
     handleSubmission(data);
   };
-
-  useEffect(() => {
-    //handle redirect after signin
-    if (session && status === "authenticated") {
-      const callbackUrl = router?.query?.callbackUrl || "/";
-
-      router.push(callbackUrl.toString());
-      return;
-    }
-  }, [session]);
 
   return (
     <div className="mx-auto flex flex-col items-center justify-center py-2">
