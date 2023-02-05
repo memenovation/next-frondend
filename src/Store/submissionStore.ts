@@ -13,7 +13,7 @@ export const SubmissionStatus = map<Status>({
   error: null,
 });
 
-export async function handleSubmission(data) {
+export async function handleSubmission(data, callbackUrl) {
   console.log("submmited");
   // start loading
   SubmissionStatus.set({
@@ -25,6 +25,7 @@ export async function handleSubmission(data) {
   // call next-auth signin
   const status = await signIn("credentials", {
     // redirect: false,
+    callbackUrl: callbackUrl,
     email: data.email,
     password: data.password,
   });

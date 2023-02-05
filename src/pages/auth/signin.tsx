@@ -26,8 +26,8 @@ export default function SignIn() {
 
   //handle form submission
   const onSubmit = (data) => {
-    // const callbackUrl = router?.query?.callbackUrl || "/";
-    handleSubmission(data);
+    const callbackUrl = router?.query?.callbackUrl || "/";
+    handleSubmission(data, callbackUrl.toString());
   };
 
   return (
