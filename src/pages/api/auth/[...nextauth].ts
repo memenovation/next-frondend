@@ -4,7 +4,7 @@ import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
 //functions
-import { signInUser } from "@functions/authLogic";
+import { signInUser } from "@functions/auth/server";
 
 export const authOptions = {
   //Configure JWT

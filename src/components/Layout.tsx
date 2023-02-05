@@ -12,7 +12,7 @@ export const Layout = ({ children }) => {
 
   useEffect(() => {
     //handle redirect to signin when logged out
-    if (!session && router.pathname != "/auth/signin") {
+    if (status === "unauthenticated" && router.pathname != "/auth/signin") {
       console.log("redirectin");
       router.push("/auth/signin");
       return;

@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 
 //icons
 import { ImSpinner9 } from "react-icons/im";
+import { handleSignIn } from "@functions/auth/frontend";
 
 export default function SignIn() {
   const {
@@ -26,29 +27,8 @@ export default function SignIn() {
   });
 
   //handle form submission
-  const onSubmit = async (data) => {
-    console.log("submmited");
-
-    setSubmissionStatus((prev) => ({ ...prev, error: null, isLoading: true }));
-    const status = await signIn("credentials", {
-      redirect: false,
-      email: data.email,
-      password: data.password,
-    });
-
-    console.log("status", status);
-
-    let error;
-    if (status?.error) {
-      error = status.error;
-    }
-    setSubmissionStatus((prev) => ({
-      ...prev,
-      error: error || null,
-      isLoading: false,
-    }));
-
-    return;
+  const onSubmit = (data) => {
+    handleSignIn(data, setSubmissionStatus);
   };
 
   return (

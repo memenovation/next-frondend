@@ -1,6 +1,6 @@
 //auth logic for the app
 
-//custom login logic here
+//custom login logic here, call in api
 export const signInUser = async (email: string, password: string) => {
   await new Promise((resolve) => setTimeout(resolve, 100));
   //Check if user exists
