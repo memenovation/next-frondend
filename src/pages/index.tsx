@@ -1,9 +1,6 @@
 import Head from "next/head";
 import { useSession, getSession, signOut, signIn } from "next-auth/react";
-import { useRouter } from "next/router";
 
-import { authOptions } from "../pages/api/auth/[...nextauth]";
-import { unstable_getServerSession } from "next-auth/next";
 export default function Home() {
   const { data: sessionData, status } = useSession();
   console.log("h session", sessionData);
@@ -75,27 +72,4 @@ export default function Home() {
       </main>
     </div>
   );
-}
-
-export async function getServerSideProps(context) {
-  const session = await unstable_getServerSession(
-    //@ts-ignore
-    context.req,
-    context.res,
-    authOptions
-  );
-
-  if (!session) {
-    return {
-      redirect: {
-        destination: "/auth/signin",
-        permanent: false,
-      },
-    };
-  }
-  console.log("server session", session);
-
-  return {
-    props: {},
-  };
 }

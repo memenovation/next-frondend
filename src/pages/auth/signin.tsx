@@ -1,4 +1,4 @@
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import Head from "next/head";
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
@@ -19,8 +19,6 @@ export default function SignIn() {
     password: { required: "Password is required" },
   };
 
-  //loading state for form submission
-  const [isSubscribed, setIsSubscribed] = useState(false);
   const [submissionStatus, setSubmissionStatus] = useState({
     isLoading: false,
     submitted: false,
@@ -38,8 +36,10 @@ export default function SignIn() {
       password: data.password,
     });
 
+    console.log("status", status);
+
     let error;
-    if (status.error) {
+    if (status?.error) {
       error = status.error;
     }
     setSubmissionStatus((prev) => ({
@@ -47,7 +47,7 @@ export default function SignIn() {
       error: error || null,
       isLoading: false,
     }));
-    console.log("status", status);
+
     return;
   };
 
@@ -87,7 +87,7 @@ export default function SignIn() {
 
           <button
             type="submit"
-            disabled={submissionStatus.isLoading || isSubscribed}
+            disabled={submissionStatus.isLoading}
             className={`font-bold w-full  rounded px-4 py-4 text-gray-50 bg-teal-700
               hover:bg-teal-600
               focus:outline-none focus:ring-offset-2 focus:ring-offset-gray-900 focus:ring-2 focus:ring-teal-600 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-teal-700`}
