@@ -10,27 +10,27 @@ export const Layout = ({ children }) => {
   console.log("session", session);
   console.log("status", status);
 
-  useEffect(() => {
-    //handle redirect to signin when logged out
-    // if (status === "unauthenticated" && router.pathname != "/auth/signin") {
-    //   console.log("redirectin");
-    //   router.push("/auth/signin");
-    //   return;
-    // }
+  // useEffect(() => {
+  //   //handle redirect to signin when logged out
+  //   // if (status === "unauthenticated" && router.pathname != "/auth/signin") {
+  //   //   console.log("redirectin");
+  //   //   router.push("/auth/signin");
+  //   //   return;
+  //   // }
 
-    //handle redirect after signin
-    if (
-      (router.pathname === "/auth/signin" ||
-        router.pathname === "/api/auth/signin") &&
-      session &&
-      status === "authenticated"
-    ) {
-      const callbackUrl = router?.query?.callbackUrl || "/";
+  //   //handle redirect after signin
+  //   if (
+  //     (router.pathname === "/auth/signin" ||
+  //       router.pathname === "/api/auth/signin") &&
+  //     session &&
+  //     status === "authenticated"
+  //   ) {
+  //     const callbackUrl = router?.query?.callbackUrl || "/";
 
-      router.push(callbackUrl.toString());
-      return;
-    }
-  }, [session]);
+  //     router.push(callbackUrl.toString());
+  //     return;
+  //   }
+  // }, [session]);
 
   return (
     <div className="flex flex-col items-center  min-h-screen w-full">
