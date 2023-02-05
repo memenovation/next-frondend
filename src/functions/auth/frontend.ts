@@ -13,7 +13,7 @@ export const handleSignIn = async (data, setSubmissionStatus) => {
 
   // call next-auth signin
   const status = await signIn("credentials", {
-    redirect: false,
+    // redirect: false,
     email: data.email,
     password: data.password,
   });
