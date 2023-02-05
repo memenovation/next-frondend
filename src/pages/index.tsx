@@ -1,11 +1,6 @@
 import Head from "next/head";
-import { useSession, getSession, signOut, signIn } from "next-auth/react";
 
 export default function Home() {
-  const { data: sessionData, status } = useSession();
-  console.log("h session", sessionData);
-  console.log("h status", status);
-
   return (
     <div className="mx-auto flex flex-col items-center justify-center py-2">
       <Head>
