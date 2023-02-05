@@ -14,6 +14,9 @@ npx create-next-app my-next-app -e https://github.com/memenovation/next-frondend
 yarn create next-app my-next-app -e https://github.com/memenovation/next-frondend
 
 
+# user authentication with next-auth using middleware, and nanostore as state management
+yarn create next-app my-next-app -e https://github.com/memenovation/next-frondend/tree/with-next-auth-middleware
+
 # with basic auth using middleware
 yarn create next-app my-next-app -e https://github.com/memenovation/next-frondend/tree/with-basic-auth
 
@@ -22,6 +25,8 @@ yarn create next-app my-next-app -e https://github.com/memenovation/next-fronden
 
 # user authentication with next-auth and prisma (cockroachdb)
 yarn create next-app my-next-app -e https://github.com/memenovation/next-frondend/tree/with-next-auth-prisma-cockroach
+
+
 
 ```
 

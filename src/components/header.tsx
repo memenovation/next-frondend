@@ -1,8 +1,10 @@
 import { useSession, getSession, signOut, signIn } from "next-auth/react";
 
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 export const Header = ({}) => {
+  const router = useRouter();
   const { data: session, status } = useSession();
 
   const handleAuthChange = async () => {
@@ -16,7 +18,9 @@ export const Header = ({}) => {
 
   return (
     <div className="h-12 w-full shadow-md fixed flex justify-between">
-      {session && status === "authenticated" ? (
+      {router.pathname != "/auth/signin" &&
+      session &&
+      status === "authenticated" ? (
         <button onClick={handleAuthChange}>Sign Out</button>
       ) : (
         <div></div>

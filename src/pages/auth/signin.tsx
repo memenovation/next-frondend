@@ -1,11 +1,12 @@
-import { signIn, useSession } from "next-auth/react";
 import Head from "next/head";
 import { useForm } from "react-hook-form";
-import { useEffect, useState } from "react";
 
 //icons
 import { ImSpinner9 } from "react-icons/im";
-import { handleSignIn } from "@functions/auth/frontend";
+
+//store
+import { useStore } from "@nanostores/react";
+import { handleSubmission, SubmissionStatus } from "@store/submissionStore";
 
 export default function SignIn() {
   const {
@@ -14,21 +15,17 @@ export default function SignIn() {
     handleSubmit,
   } = useForm();
 
+  const submissionStatus = useStore(SubmissionStatus);
+
   //define form field options
   const registerOptions = {
     email: { required: "Email is required" },
     password: { required: "Password is required" },
   };
 
-  const [submissionStatus, setSubmissionStatus] = useState({
-    isLoading: false,
-    submitted: false,
-    error: null,
-  });
-
   //handle form submission
   const onSubmit = (data) => {
-    handleSignIn(data, setSubmissionStatus);
+    handleSubmission(data);
   };
 
   return (
