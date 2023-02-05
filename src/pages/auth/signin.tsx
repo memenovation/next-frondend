@@ -1,6 +1,6 @@
 import Head from "next/head";
 import { useForm } from "react-hook-form";
-
+import { useRouter } from "next/router";
 //icons
 import { ImSpinner9 } from "react-icons/im";
 
@@ -9,6 +9,7 @@ import { useStore } from "@nanostores/react";
 import { handleSubmission, SubmissionStatus } from "@store/submissionStore";
 
 export default function SignIn() {
+  const router = useRouter();
   const {
     register,
     formState: { errors },
@@ -25,6 +26,7 @@ export default function SignIn() {
 
   //handle form submission
   const onSubmit = (data) => {
+    // const callbackUrl = router?.query?.callbackUrl || "/";
     handleSubmission(data);
   };
 
