@@ -14,3 +14,9 @@ export default function Testing() {
     </div>
   );
 }
+
+Testing.auth = {
+  role: "admin",
+  loading: <div>Loading...</div>,
+  unauthorized: "/auth/signin", // redirect to this url
+};

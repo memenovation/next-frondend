@@ -68,3 +68,8 @@ export default function Home() {
     </div>
   );
 }
+Home.auth = {
+  role: "admin",
+  loading: <div>Loading...</div>,
+  unauthorized: "/auth/signin", // redirect to this url
+};
