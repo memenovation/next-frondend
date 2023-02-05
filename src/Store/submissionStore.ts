@@ -13,7 +13,7 @@ export const SubmissionStatus = map<Status>({
   error: null,
 });
 
-export async function handleSubmission(data, callbackUrl) {
+export async function handleSubmission(data, router) {
   console.log("submmited");
   // start loading
   SubmissionStatus.set({
@@ -24,23 +24,30 @@ export async function handleSubmission(data, callbackUrl) {
 
   // call next-auth signin
   const status = await signIn("credentials", {
-    // redirect: false,
-    callbackUrl: callbackUrl,
+    redirect: false,
+    // callbackUrl: router.query.callbackUrl || "/",
     email: data.email,
     password: data.password,
   });
+
+  // handle success login
+  if (status?.ok) {
+    SubmissionStatus.set({
+      ...SubmissionStatus.get(),
+      isLoading: false,
+    });
+    return router.push(router.query.callbackUrl || "/");
+  }
 
   let error;
   if (status?.error) {
     error = status.error;
   }
-
   // stop loading and set error
   SubmissionStatus.set({
     ...SubmissionStatus.get(),
-    error: error || null,
+    error: error,
     isLoading: false,
   });
-
   return;
 }
