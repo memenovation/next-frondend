@@ -3,8 +3,13 @@ import { signIn } from "next-auth/react";
 //login handler, call in frontend
 export const handleSignIn = async (data, setSubmissionStatus) => {
   console.log("submmited");
+
   // start loading
-  setSubmissionStatus((prev) => ({ ...prev, error: null, isLoading: true }));
+  setSubmissionStatus((prev) => ({
+    ...prev,
+    error: null,
+    isLoading: true,
+  }));
 
   // call next-auth signin
   const status = await signIn("credentials", {

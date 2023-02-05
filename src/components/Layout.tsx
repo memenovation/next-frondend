@@ -19,7 +19,8 @@ export const Layout = ({ children }) => {
     }
     //handle redirect after signin
     if (
-      router.pathname == "/auth/signin" &&
+      (router.pathname === "/auth/signin" ||
+        router.pathname === "/api/auth/signin") &&
       session &&
       status === "authenticated"
     ) {
