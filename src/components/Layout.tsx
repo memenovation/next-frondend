@@ -10,19 +10,6 @@ export const Layout = ({ children }) => {
   console.log("session", session);
   console.log("status", status);
 
-  useLayoutEffect(() => {
-    //check if route is protected
-    if (
-      router.pathname != "/auth/signin" &&
-      !session &&
-      status === "unauthenticated"
-    ) {
-      console.log("redirecting");
-      router.push("/auth/signin");
-      return;
-    }
-  }, [session]);
-
   useEffect(() => {
     //handle redirect to signin when logged out
     if (status === "unauthenticated" && router.pathname != "/auth/signin") {
