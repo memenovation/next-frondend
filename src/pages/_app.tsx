@@ -4,6 +4,7 @@ import { useSession, signIn } from "next-auth/react";
 import { useEffect } from "react";
 //components
 import { Layout } from "@components/Layout";
+import { useRouter } from "next/router";
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   return (
@@ -23,10 +24,11 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
 
 function Auth({ children }) {
   const { data: session, status } = useSession();
+  const router = useRouter();
   const isUser = !!session?.user;
   useEffect(() => {
     if (status === "loading") return; // Do nothing while loading
-    if (!isUser) signIn(); // If not authenticated, force log in
+    if (!isUser) router.push("/auth/signin"); // If not authenticated, force log in
   }, [session, status]);
 
   if (isUser) {
