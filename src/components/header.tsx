@@ -27,8 +27,12 @@ export const Header = ({}) => {
       )}
 
       <div className="flex justify-center items-center gap-x-4">
-        <Link href={"/"}>Home</Link>
-        <Link href={"/testing"}>Testing</Link>
+        <Link href={"/"} prefetch={false}>
+          Home
+        </Link>
+        <Link href={"/testing"} prefetch={false}>
+          Testing
+        </Link>
       </div>
       <div></div>
     </div>

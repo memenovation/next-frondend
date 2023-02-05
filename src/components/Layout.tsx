@@ -1,5 +1,5 @@
 import { Header } from "./header";
-import { useEffect } from "react";
+import { useEffect, useLayoutEffect } from "react";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 
@@ -9,6 +9,19 @@ export const Layout = ({ children }) => {
 
   console.log("session", session);
   console.log("status", status);
+
+  useLayoutEffect(() => {
+    //check if route is protected
+    if (
+      router.pathname != "/auth/signin" &&
+      !session &&
+      status === "unauthenticated"
+    ) {
+      console.log("redirecting");
+      router.push("/auth/signin");
+      return;
+    }
+  }, [session]);
 
   useEffect(() => {
     //handle redirect to signin when logged out
