@@ -1,41 +1,40 @@
 import { useSession, getSession, signOut, signIn } from "next-auth/react";
-import { useEffect } from "react";
+
+import Link from "next/link";
 import { useRouter } from "next/router";
 
 export const Header = ({}) => {
   const router = useRouter();
   const { data: session, status } = useSession();
-  console.log("session", session);
-  console.log("status", status);
 
   const handleAuthChange = async () => {
     console.log("auth changing");
     if (session) {
       console.log("signing out");
-      return signOut({ redirect: false });
+      signOut({ redirect: false });
+      return;
     }
-    return await signIn("credentials", {
-      redirect: false,
-      password: "password",
-    });
   };
 
-  //redirect to homepage if signed in
-  useEffect(() => {
-    if (session && status === "authenticated") {
-      router.push("/");
-      return;
-    } else {
-      router.push("/auth/signin");
-      return;
-    }
-  }, [session]);
-
   return (
-    <div className="h-12 w-full shadow-md fixed">
-      <button onClick={handleAuthChange}>
-        {status === "authenticated" ? "Sign out" : "Sign In"}
-      </button>
+    <div className="h-12 w-full shadow-md fixed flex justify-between">
+      {router.pathname != "/auth/signin" &&
+      session &&
+      status === "authenticated" ? (
+        <button onClick={handleAuthChange}>Sign Out</button>
+      ) : (
+        <div></div>
+      )}
+
+      <div className="flex justify-center items-center gap-x-4">
+        <Link href={"/"} prefetch={false}>
+          Home
+        </Link>
+        <Link href={"/testing"} prefetch={false}>
+          Testing
+        </Link>
+      </div>
+      <div></div>
     </div>
   );
 };

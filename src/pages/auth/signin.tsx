@@ -1,17 +1,22 @@
-import { signIn } from "next-auth/react";
 import Head from "next/head";
 import { useForm } from "react-hook-form";
-import { useEffect, useState } from "react";
-
+import { useRouter } from "next/router";
 //icons
 import { ImSpinner9 } from "react-icons/im";
 
+//store
+import { useStore } from "@nanostores/react";
+import { handleSubmission, SubmissionStatus } from "@store/submissionStore";
+
 export default function SignIn() {
+  const router = useRouter();
   const {
     register,
     formState: { errors },
     handleSubmit,
   } = useForm();
+
+  const submissionStatus = useStore(SubmissionStatus);
 
   //define form field options
   const registerOptions = {
@@ -19,36 +24,9 @@ export default function SignIn() {
     password: { required: "Password is required" },
   };
 
-  //loading state for form submission
-  const [isSubscribed, setIsSubscribed] = useState(false);
-  const [submissionStatus, setSubmissionStatus] = useState({
-    isLoading: false,
-    submitted: false,
-    error: null,
-  });
-
   //handle form submission
-  const onSubmit = async (data) => {
-    console.log("submmited");
-
-    setSubmissionStatus((prev) => ({ ...prev, error: null, isLoading: true }));
-    const status = await signIn("credentials", {
-      redirect: false,
-      email: data.email,
-      password: data.password,
-    });
-
-    let error;
-    if (status.error) {
-      error = status.error;
-    }
-    setSubmissionStatus((prev) => ({
-      ...prev,
-      error: error || null,
-      isLoading: false,
-    }));
-    console.log("status", status);
-    return;
+  const onSubmit = (data) => {
+    handleSubmission(data, router);
   };
 
   return (
@@ -87,7 +65,7 @@ export default function SignIn() {
 
           <button
             type="submit"
-            disabled={submissionStatus.isLoading || isSubscribed}
+            disabled={submissionStatus.isLoading}
             className={`font-bold w-full  rounded px-4 py-4 text-gray-50 bg-teal-700
               hover:bg-teal-600
               focus:outline-none focus:ring-offset-2 focus:ring-offset-gray-900 focus:ring-2 focus:ring-teal-600 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-teal-700`}

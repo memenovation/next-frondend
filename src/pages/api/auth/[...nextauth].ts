@@ -1,12 +1,10 @@
 //packages
 import NextAuth from "next-auth";
-const bcrypt = require("bcrypt");
-import CredentialsProvider from "next-auth/providers/credentials";
-//functions
-import { mongoAPI } from "@functions/dataFetching";
 
-//config
-import { mongoDefault } from "@configs/mongoConfig";
+import CredentialsProvider from "next-auth/providers/credentials";
+
+//functions
+import { signInUser } from "@functions/auth/server";
 
 export const authOptions = {
   //Configure JWT
@@ -22,34 +20,10 @@ export const authOptions = {
       },
       async authorize(credentials, req) {
         try {
-          //find user by email in mongoDB
-          const result = await mongoAPI({
-            ...mongoDefault,
-            action: "findOne",
-            filter: {
-              email: credentials.email,
-            },
-          });
-
-          const user = result.document;
-          //Not found - send error res
-          if (!user) {
-            console.log("user not found");
-            throw new Error("User not found");
-          }
-
-          //Check hased password with DB password
-          const checkPassword = await bcrypt.compare(
-            credentials.password,
-            user?.password
+          const user = await signInUser(
+            credentials.email,
+            credentials.password
           );
-
-          console.log("checkPassword", checkPassword);
-          //Incorrect password - send response
-          if (!checkPassword) {
-            throw new Error("Incorrect password");
-          }
-          console.log("success", user);
           return user;
         } catch (error) {
           console.log("error", error.message);
